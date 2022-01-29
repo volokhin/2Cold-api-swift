@@ -11,6 +11,9 @@ class FreezersController: RouteCollection {
             guard let floor = Int(request.parameters.get("floor") ?? "") else {
                 return request.eventLoop.makeFailedFuture(Abort(.badRequest))
             }
+            guard floor == 5 || floor == 8 else {
+                return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "Unexpected floor '\(floor)'"))
+            }
             return try self.list(request, floor: floor)
         }
 
@@ -18,6 +21,9 @@ class FreezersController: RouteCollection {
             guard let floor = Int(request.parameters.get("floor") ?? ""),
                   let freezer = Int(request.parameters.get("freezer") ?? "") else {
                 return request.eventLoop.makeFailedFuture(Abort(.badRequest))
+            }
+            guard floor == 5 || floor == 8 else {
+                return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "Unexpected floor '\(floor)'"))
             }
             return try self.enable(request, floor: floor, freezer: freezer)
         }
@@ -27,6 +33,9 @@ class FreezersController: RouteCollection {
                   let freezer = Int(request.parameters.get("freezer") ?? "") else {
                 return request.eventLoop.makeFailedFuture(Abort(.badRequest))
             }
+            guard floor == 5 || floor == 8 else {
+                return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "Unexpected floor '\(floor)'"))
+            }
             return try self.disable(request, floor: floor, freezer: freezer)
         }
 
@@ -35,6 +44,9 @@ class FreezersController: RouteCollection {
                   let freezer = Int(request.parameters.get("freezer") ?? "") else {
                 return request.eventLoop.makeFailedFuture(Abort(.badRequest))
             }
+            guard floor == 5 || floor == 8 else {
+                return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "Unexpected floor '\(floor)'"))
+            }
             return try self.toggle(request, floor: floor, freezer: freezer)
         }
 
@@ -42,6 +54,9 @@ class FreezersController: RouteCollection {
             guard let floor = Int(request.parameters.get("floor") ?? ""),
                   let freezer = Int(request.parameters.get("freezer") ?? "") else {
                 return request.eventLoop.makeFailedFuture(Abort(.badRequest))
+            }
+            guard floor == 5 || floor == 8 else {
+                return request.eventLoop.makeFailedFuture(Abort(.badRequest, reason: "Unexpected floor '\(floor)'"))
             }
             let data = try request.content.decode(FreezerData.self)
             return try self.edit(request, floor: floor, freezer: freezer, data: data)
